@@ -16,7 +16,7 @@ Then bundle and deploy the `extract-meta` zapp:
     $ zpm bundle
     $ zpm deploy video-browser/extract-meta extract-meta.zapp
 
-Create a container called `videoes` and upload some objects there
+Create a container called `videos` and upload some objects there
 (currently only tested with MP4 files):
 
     $ swift upload videos *.mp4
