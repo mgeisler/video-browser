@@ -1,0 +1,46 @@
+body {
+    font-family: sans;
+}
+
+a {
+    cursor: pointer;
+}
+
+.exhausted {
+    font-style: italic;
+    color: grey;
+}
+
+.video {
+    display: inline-block;
+    height: 120px;
+    width: 160px;
+    background-image: url("http://placehold.it/160x120/C40022&text=Video");
+    margin: 0.5em;
+    border: thin solid grey;
+}
+
+.video .title {
+    height: 20px;
+    margin: 0;
+    padding: 6px 0px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.video .title.swift {
+    color: blue;
+}
+
+.video .title.zerovm {
+    color: orange;
+}
+
+
+.pending {
+    background-color: #efefef;
+}
+
+.updated {
+    font-weight: bold;
+}
