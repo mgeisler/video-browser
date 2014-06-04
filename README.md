@@ -9,17 +9,17 @@ Usage
 You should upload the static files found in the root of the repository
 using normal `swift upload`:
 
-  $ swift upload video-browser *.html *.js *.css
+    $ swift upload video-browser *.html *.js *.css
 
 Then bundle and deploy the `extract-meta` zapp:
 
-  $ zpm bundle
-  $ zpm deploy video-browser/extract-meta extract-meta.zapp
+    $ zpm bundle
+    $ zpm deploy video-browser/extract-meta extract-meta.zapp
 
 Create a container called `videoes` and upload some objects there
 (currently only tested with MP4 files):
 
-  $ swift upload videos *.mp4
+    $ swift upload videos *.mp4
 
 You can find a [sample file online][1].
 
