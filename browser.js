@@ -115,11 +115,8 @@ function load_thumbnails(elm) {
                     } else {
                         job = update_job_input(base_job, container, name);
                         client.execute(job, function (result) {
-                            result = JSON.parse(result);
-                            if (result.valid) {
-                                $(video).css('background-image',
-                                             'url(data:' + result.thumb + ')');
-                            }
+                            $(video).css('background-image',
+                                         'url("data:image/png;base64,' + result.replace('\n', '', 'g') + '")');
                         });
                     }
                 });
