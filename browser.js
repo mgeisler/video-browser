@@ -69,26 +69,24 @@ function load_titles(elm) {
                 var name = $(video).data('name');
                 var title = $(video).children('.title');
                 title.addClass('pending');
-                $.ajax(prefix + '/' + name, {
-                    method: 'HEAD',
-                    cache: false,
-                    success: function (data, status, xhr) {
-                        title.removeClass('pending');
-                        var text = xhr.getResponseHeader('X-Object-Meta-Title');
-                        if (text) {
-                            title.text(text);
-                            title.addClass('updated swift');
-                        } else {
-                            job = extract_meta_job(base_job, container, name);
-                            client.execute(job, function (result) {
-                                $(video).removeClass('pending');
-                                result = JSON.parse(result);
-                                if (result.valid && result.title) {
-                                    title.text(result.title);
-                                    title.addClass('updated zerovm');
-                                }
-                            });
-                        }
+                var ajax_opts = {method: 'HEAD', cache: false};
+                var q = $.ajax(prefix + '/' + name, ajax_opts);
+                q.then(function (data, status, xhr) {
+                    title.removeClass('pending');
+                    var text = xhr.getResponseHeader('X-Object-Meta-Title');
+                    if (text) {
+                        title.text(text);
+                        title.addClass('updated swift');
+                    } else {
+                        job = extract_meta_job(base_job, container, name);
+                        client.execute(job, function (result) {
+                            $(video).removeClass('pending');
+                            result = JSON.parse(result);
+                            if (result.valid && result.title) {
+                                title.text(result.title);
+                                title.addClass('updated zerovm');
+                            }
+                        });
                     }
                 });
             });
