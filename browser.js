@@ -41,6 +41,7 @@ function page_videos(element, direction) {
         var html = template(videos);
         element.html(html);
         load_titles(element);
+        load_thumbnails(element);
     });
 }
 
@@ -85,6 +86,39 @@ function load_titles(elm) {
                             if (result.valid && result.title) {
                                 title.text(result.title);
                                 title.addClass('updated zerovm');
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    });
+}
+
+function load_thumbnails(elm) {
+    var client = new ZeroCloudClient();
+    var opts = {"version": "0.0", "swiftUrl": swift_url()};
+    var extract = swift_url() + '/video-browser/extract-thumbnail/extract-thumbnail.json';
+    var prefix = swift_url() + '/' + elm.data('container');
+    var container = elm.data('container');
+
+    client.auth(opts, function () {
+        $.getJSON(extract, function (base_job) {
+            elm.find('.video').each(function (i, video) {
+                var name = $(video).data('name');
+                var ajax_opts = {method: 'HEAD', cache: false};
+                var q = $.ajax(prefix + '/' + name, ajax_opts);
+                q.then(function (data, status, xhr) {
+                    var thumb = xhr.getResponseHeader('X-Object-Meta-Thumbnail');
+                    if (thumb) {
+                        $(video).css('background-image', 'url(' + thumb + ')');
+                    } else {
+                        job = update_job_input(base_job, container, name);
+                        client.execute(job, function (result) {
+                            result = JSON.parse(result);
+                            if (result.valid) {
+                                $(video).css('background-image',
+                                             'url(data:' + result.thumb + ')');
                             }
                         });
                     }
