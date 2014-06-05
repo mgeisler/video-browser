@@ -1,0 +1,47 @@
+# This section describes the runtime behavior of your zapp: which
+# groups of nodes to create and which nexe to invoke for each.
+execution:
+
+  # Your application can consist of multiple groups. This is typically
+  # used for map-reduce style jobs. This is a list of groups, so
+  # remember to add "-" infront of each group name.
+  groups:
+
+      # Name of this group. This is used if you need to connect groups
+      # with each other.
+    - name: "extract"
+
+      # The NaCl executable (nexe) to run on the nodes in this group.
+      path: file://python:python
+
+      # Command line arguments for the nexe.
+      args: "extract.py"
+
+      # Input and output devices for this group.
+      devices:
+      - name: python
+      - name: stdout
+      - name: input
+
+# Meta-information about your zapp.
+meta:
+  Version: "0.1"
+  name: "extract-thumbnail"
+  author: "Martin Geisler"
+  email: "martin@geisler.net"
+  Summary: "Extracts a thumbnail from a video object"
+
+help:
+  # Short description of your zapp. This is used for auto-generated
+  # help.
+  description: ""
+
+  # Help for the command line arguments. Each entry is a two-tuple
+  # with an option name and an option help text.
+  args: []
+
+# Files to include in your zapp. Your can use glob patterns here, they
+# will be resolved relative to the location of this file.
+bundling:
+  - "*.py"
+  - "thumbnails/*.png"
