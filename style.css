@@ -13,9 +13,9 @@ a {
 
 .video {
     display: inline-block;
-    height: 120px;
-    width: 160px;
-    background-image: url("http://placehold.it/160x120/C40022&text=Video");
+    height: 180px;
+    width: 320px;
+    background-image: url("http://placehold.it/320x180/C40022&text=Video");
     margin: 0.5em;
     border: thin solid grey;
 }
