@@ -44,7 +44,7 @@ function page_videos(element, direction) {
     });
 }
 
-function extract_meta_job(base_job, container, name) {
+function update_job_input(base_job, container, name) {
     var job = JSON.parse(JSON.stringify(base_job));  // clone job
     var path = 'swift://~/' + container + '/' + name;
     var devices = job[0].file_list;
@@ -78,7 +78,7 @@ function load_titles(elm) {
                         title.text(text);
                         title.addClass('updated swift');
                     } else {
-                        job = extract_meta_job(base_job, container, name);
+                        job = update_job_input(base_job, container, name);
                         client.execute(job, function (result) {
                             $(video).removeClass('pending');
                             result = JSON.parse(result);
