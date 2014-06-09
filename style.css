@@ -17,7 +17,9 @@ a {
     height: 180px;
     background-image: url("http://placehold.it/320x180/C40022&text=No+Thumbnail");
     margin: 0.5em;
-    border: thin solid grey;
+    border: 2px solid grey;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 .video .title {
