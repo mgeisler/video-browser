@@ -12,20 +12,19 @@ execution:
     - name: "extract"
 
       # The NaCl executable (nexe) to run on the nodes in this group.
-      path: file://python:python
+      path: file://avconv
 
       # Command line arguments for the nexe.
-      args: "extract.py"
+      args: "-i /dev/input -f ffmetadata -"
 
       # Input and output devices for this group.
       devices:
-      - name: python
       - name: stdout
       - name: input
 
 # Meta-information about your zapp.
 meta:
-  Version: "0.1"
+  Version: "0.2"
   name: "extract-meta"
   author: "Martin Geisler"
   email: "martin@geisler.net"
@@ -43,5 +42,4 @@ help:
 # Files to include in your zapp. Your can use glob patterns here, they
 # will be resolved relative to the location of this file.
 bundling:
-  - "*.py"
-  - "hsaudiotag/*.py"
+  - "avconv"

@@ -97,8 +97,8 @@ function load_titles(elm) {
                         job = update_job_input(base_job, container, name);
                         client.execute(job, function (result) {
                             $(video).removeClass('pending');
-                            result = JSON.parse(result);
-                            if (result.valid && result.title) {
+                            result = ini_parse(result);
+                            if (result.title) {
                                 title.text(result.title);
                                 title.addClass('updated zerovm');
                             }
@@ -138,4 +138,23 @@ function load_thumbnails(elm) {
             });
         });
     });
+}
+
+function ini_parse(data) {
+    var result = {};
+    var section = null;
+    $.each(data.split('\n'), function (i, line) {
+        if (!line || line.charAt(0) == ';')
+            return true;
+        if (line.charAt(0) == '[') {
+            section = line.substr(1, line.length - 2);
+            return true;
+        }
+        var keyvalue = line.split('=', 2);
+        var key = keyvalue[0];
+        if (section)
+            key = section + '.' + key;
+        result[key] = keyvalue[1];
+    });
+    return result;
 }
