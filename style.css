@@ -3,7 +3,13 @@ body {
 }
 
 a {
+    color: blue;
     cursor: pointer;
+}
+
+a.disabled {
+    color: grey;
+    cursor: inherit;
 }
 
 .exhausted {

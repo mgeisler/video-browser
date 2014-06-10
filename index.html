@@ -28,9 +28,19 @@
           var source = $('#videos-template').html();
           var template = Handlebars.compile(source);
           var videos = $("#videos");
+          var prev = $('#prev');
+          var next = $('#next');
           videos.data('template', template);
-          $('#prev').click(function () { page_videos(videos, 'prev') });
-          $('#next').click(function () { page_videos(videos, 'next') });
+          videos.data('prev', prev);
+          videos.data('next', next);
+          prev.click(function () {
+              if (!$(this).hasClass('disabled'))
+                  page_videos(videos, 'prev');
+          });
+          next.click(function () {
+              if (!$(this).hasClass('disabled'))
+                  page_videos(videos, 'next');
+          });
           page_videos(videos, 'next');
       });
     </script>

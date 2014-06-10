@@ -49,12 +49,14 @@ function page_videos(element, direction) {
         }
     }
 
-    load_videos(element.data('container'), opts, function (videos) {
+    load_videos(element.data('container'), opts, function (videos, first, last) {
         var template = element.data('template');
         var html = template(videos);
         element.html(html);
         load_titles(element);
         load_thumbnails(element);
+        element.data('prev')[first ? 'addClass' : 'removeClass']('disabled');
+        element.data('next')[last ? 'addClass' : 'removeClass']('disabled');
     });
 }
 
