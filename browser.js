@@ -17,20 +17,20 @@ function list_objects(container, opts, success) {
 function load_videos(container, opts, success) {
     list_objects(container, opts, function (data) {
         if (data.length == 0) {
-            return (success || $.noop)({'videos': []}, true, true);
+            return (success || $.noop)({videos: []}, true, true);
         } else {
             var first = data[0].name;
             var last = data[data.length - 1].name;
-            var prev = list_objects(container, {'limit': 1, 'end_marker': first});
-            var next = list_objects(container, {'limit': 1, 'marker': last});
+            var prev = list_objects(container, {limit: 1, end_marker: first});
+            var next = list_objects(container, {limit: 1, marker: last});
 
             videos = $.map(data, function (obj) {
-                return {'name': obj.name};
+                return {name: obj.name};
             });
             $.when(prev, next).then(function (a_prev, a_next) {
                 var first = a_prev[0].length == 0;
                 var last = a_next[0].length == 0;
-                return (success || $.noop)({'videos': videos}, first, last);
+                return (success || $.noop)({videos: videos}, first, last);
             });
         }
     });
@@ -38,7 +38,7 @@ function load_videos(container, opts, success) {
 
 function page_videos(element, direction) {
     var videos = element.find('.video');
-    var opts = {'limit': 6, 'marker': null, 'end_marker': null};
+    var opts = {limit: 6, marker: null, end_marker: null};
     if (videos.length > 0) {
         if (direction == 'prev') {
             var video = videos[0];
@@ -74,7 +74,7 @@ function update_job_input(base_job, container, name) {
 
 function load_titles(elm) {
     var client = new ZeroCloudClient();
-    var opts = {"version": "0.0", "swiftUrl": swift_url()};
+    var opts = {version: "0.0", swiftUrl: swift_url()};
     var extract = swift_url() + '/video-browser/extract-meta/extract-meta.json';
     var prefix = swift_url() + '/' + elm.data('container');
     var container = elm.data('container');
@@ -112,7 +112,7 @@ function load_titles(elm) {
 
 function load_thumbnails(elm) {
     var client = new ZeroCloudClient();
-    var opts = {"version": "0.0", "swiftUrl": swift_url()};
+    var opts = {version: "0.0", swiftUrl: swift_url()};
     var extract = swift_url() + '/video-browser/extract-thumbnail/extract-thumbnail.json';
     var prefix = swift_url() + '/' + elm.data('container');
     var container = elm.data('container');
