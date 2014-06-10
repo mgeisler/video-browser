@@ -11,15 +11,28 @@ function swift_url() {
 function list_objects(container, opts, success) {
     var param = $.param(opts);
     var url = swift_url() + '/' + container + '?' + param;
-    $.getJSON(url, success);
+    return $.getJSON(url, success);
 }
 
 function load_videos(container, opts, success) {
     list_objects(container, opts, function (data) {
-        videos = $.map(data, function (obj) {
-            return {'name': obj.name};
-        });
-        return (success || $.noop)({'videos': videos});
+        if (data.length == 0) {
+            return (success || $.noop)({'videos': []}, true, true);
+        } else {
+            var first = data[0].name;
+            var last = data[data.length - 1].name;
+            var prev = list_objects(container, {'limit': 1, 'end_marker': first});
+            var next = list_objects(container, {'limit': 1, 'marker': last});
+
+            videos = $.map(data, function (obj) {
+                return {'name': obj.name};
+            });
+            $.when(prev, next).then(function (a_prev, a_next) {
+                var first = a_prev[0].length == 0;
+                var last = a_next[0].length == 0;
+                return (success || $.noop)({'videos': videos}, first, last);
+            });
+        }
     });
 }
 
