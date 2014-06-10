@@ -53,8 +53,7 @@ function page_videos(element, direction) {
         var template = element.data('template');
         var html = template(videos);
         element.html(html);
-        load_titles(element);
-        load_thumbnails(element);
+        load_video_data(element);
         element.data('prev')[first ? 'addClass' : 'removeClass']('disabled');
         element.data('next')[last ? 'addClass' : 'removeClass']('disabled');
     });
@@ -72,28 +71,34 @@ function update_job_input(base_job, container, name) {
     };
 }
 
-function load_titles(elm) {
+function load_video_data(elm) {
     var client = new ZeroCloudClient();
     var opts = {version: "0.0", swiftUrl: swift_url()};
-    var extract = swift_url() + '/video-browser/extract-meta/extract-meta.json';
+    var meta = swift_url() + '/video-browser/extract-meta/extract-meta.json';
+    var thumb = swift_url() + '/video-browser/extract-thumbnail/extract-thumbnail.json';
     var prefix = swift_url() + '/' + elm.data('container');
     var container = elm.data('container');
 
     client.auth(opts, function () {
-        $.getJSON(extract, function (base_job) {
-            elm.find('.video').each(function (i, video) {
-                var name = $(video).data('name');
-                var title = $(video).children('.title');
-                title.addClass('pending');
-                var ajax_opts = {method: 'HEAD', cache: false};
-                var q = $.ajax(prefix + '/' + name, ajax_opts);
-                q.then(function (data, status, xhr) {
-                    title.removeClass('pending');
-                    var text = xhr.getResponseHeader('X-Object-Meta-Title');
-                    if (text) {
-                        title.text(text);
-                        title.addClass('updated swift');
-                    } else {
+        var meta_job = $.getJSON(meta);
+        var thumb_job = $.getJSON(thumb);
+
+        elm.find('.video').each(function (i, video) {
+            var name = $(video).data('name');
+            var title = $(video).children('.title');
+            title.addClass('pending');
+
+            var ajax_opts = {method: 'HEAD', cache: false};
+            var q = $.ajax(prefix + '/' + name, ajax_opts);
+
+            q.then(function (data, status, xhr) {
+                title.removeClass('pending');
+                var text = xhr.getResponseHeader('X-Object-Meta-Title');
+                if (text) {
+                    title.text(text);
+                    title.addClass('updated swift');
+                } else {
+                    meta_job.then(function (base_job) {
                         job = update_job_input(base_job, container, name);
                         client.execute(job, function (result) {
                             $(video).removeClass('pending');
@@ -103,38 +108,21 @@ function load_titles(elm) {
                                 title.addClass('updated zerovm');
                             }
                         });
-                    }
-                });
-            });
-        });
-    });
-}
+                    });
+                }
 
-function load_thumbnails(elm) {
-    var client = new ZeroCloudClient();
-    var opts = {version: "0.0", swiftUrl: swift_url()};
-    var extract = swift_url() + '/video-browser/extract-thumbnail/extract-thumbnail.json';
-    var prefix = swift_url() + '/' + elm.data('container');
-    var container = elm.data('container');
-
-    client.auth(opts, function () {
-        $.getJSON(extract, function (base_job) {
-            elm.find('.video').each(function (i, video) {
-                var name = $(video).data('name');
-                var ajax_opts = {method: 'HEAD', cache: false};
-                var q = $.ajax(prefix + '/' + name, ajax_opts);
-                q.then(function (data, status, xhr) {
-                    var thumb = xhr.getResponseHeader('X-Object-Meta-Thumbnail');
-                    if (thumb) {
-                        $(video).css('background-image', 'url(' + thumb + ')');
-                    } else {
+                var thumbUrl = xhr.getResponseHeader('X-Object-Meta-Thumbnail');
+                if (thumbUrl) {
+                    $(video).css('background-image', 'url(' + thumbUrl + ')');
+                } else {
+                    thumb_job.then(function (base_job) {
                         job = update_job_input(base_job, container, name);
                         client.execute(job, function (result) {
                             $(video).css('background-image',
                                          'url("data:image/png;base64,' + result.replace('\n', '', 'g') + '")');
                         });
-                    }
-                });
+                    });
+                };
             });
         });
     });
