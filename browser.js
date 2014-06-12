@@ -14,6 +14,12 @@ function list_objects(container, opts, success) {
     return $.getJSON(url, success);
 }
 
+function list_containers(opts, success) {
+    var param = $.param(opts);
+    var url = swift_url() + '/?' + param;
+    return $.getJSON(url, success);
+}
+
 function load_videos(container, opts, success) {
     list_objects(container, opts, function (data) {
         if (data.length == 0) {
