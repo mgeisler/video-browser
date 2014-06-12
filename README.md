@@ -11,10 +11,15 @@ using normal `swift upload`:
 
     $ swift upload video-browser *.html *.js *.css
 
-Then bundle and deploy the `extract-meta` zapp:
+Then bundle and deploy the `extract-meta` and `extract-thumbnail`
+zapps:
 
+    $ cd extract-meta
     $ zpm bundle
     $ zpm deploy video-browser/extract-meta extract-meta.zapp
+    $ cd ../extract-thumbnail
+    $ zpm bundle
+    $ zpm deploy video-browser/extract-thumbnail extract-thumbnail.zapp
 
 Create a container called `videos` and upload some objects there
 (currently only tested with MP4 files):
