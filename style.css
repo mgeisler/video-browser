@@ -1,5 +1,6 @@
 body {
     font-family: sans-serif;
+    background: #dfdfdf;
 }
 
 p {
@@ -84,7 +85,7 @@ a.disabled {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    background-color: #afafaf;
+    background-color: #c8c8c8;
     z-index: 1;
     border-radius: 3px 3px 0px 0px;
     font-family: monospace;
