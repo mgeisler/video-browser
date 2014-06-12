@@ -78,8 +78,9 @@ a.disabled {
 #ajax-log {
     position: absolute;
     bottom: 0;
+    left: 10px;
+    right: 10px;
     padding: 6px;
-    width: 95%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
