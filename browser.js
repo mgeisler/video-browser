@@ -21,7 +21,11 @@ function list_containers(opts, success) {
 }
 
 function load_videos(container, opts, success) {
-    list_objects(container, opts, function (data) {
+    list_objects(container, opts, function (data, status, xhr) {
+        var count = xhr.getResponseHeader('X-Container-Object-Count');
+        if (count) {
+            $('#count').text(count);
+        }
         if (data.length == 0) {
             return (success || $.noop)({videos: []}, true, true);
         } else {
