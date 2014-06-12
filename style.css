@@ -55,14 +55,6 @@ a.disabled {
     width: 0;
 }
 
-.video .title.swift {
-    color: blue;
-}
-
-.video .title.zerovm {
-    color: #ff3300;
-}
-
 .updated {
     font-weight: bold;
 }

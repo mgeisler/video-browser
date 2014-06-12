@@ -140,7 +140,7 @@ function load_video_data(elm) {
                 var text = xhr.getResponseHeader('X-Object-Meta-Title');
                 if (text) {
                     title.text(text);
-                    title.addClass('updated swift');
+                    title.addClass('updated');
                 } else {
                     meta_job.then(function (base_job) {
                         job = update_job_input(base_job, container, name);
@@ -148,7 +148,7 @@ function load_video_data(elm) {
                             result = ini_parse(result);
                             if (result.title) {
                                 title.text(result.title);
-                                title.addClass('updated zerovm');
+                                title.addClass('updated');
                             }
                         });
                     });
