@@ -39,6 +39,7 @@ a.disabled {
 }
 
 .video .title {
+    display: none;
     position: absolute;
     left: 0;
     right: 0;
@@ -70,7 +71,7 @@ a.disabled {
     font-weight: bold;
 }
 
-.video:hover .play {
+.video:hover .title, .video:hover .play {
     display: block;
 }
 
