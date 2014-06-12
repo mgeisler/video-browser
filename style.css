@@ -109,4 +109,9 @@ a.disabled {
     left: 50%;
     margin-top: -160px;
     margin-left: -280px;
+
+    padding: 2px;
+    background: white;
+    border-radius: 3px;
+    box-shadow: 0px 0px 8px white;
 }
