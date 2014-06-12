@@ -1,4 +1,22 @@
 
+function setup_ajax_logging(elm) {
+    var count = 0;
+
+    function update(msg) {
+        elm.text(count + ' outstanding requests. ' + msg);
+    }
+
+    $(document).ajaxSend(function (event, jqxhr, settings) {
+        count++;
+        update('Fetching ' + settings.url);
+    });
+
+    $(document).ajaxComplete(function (event, jqxhr, settings) {
+        count--;
+        update('Retrieved ' + settings.url);
+    });
+}
+
 function log() {
     var p = $('<p>');
     var now = new Date();

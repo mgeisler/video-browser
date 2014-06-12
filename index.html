@@ -26,6 +26,8 @@
 
     <script type="text/javascript">
       $(document).ready(function () {
+          setup_ajax_logging($('#ajax-log'));
+
           var source = $('#videos-template').html();
           var template = Handlebars.compile(source);
           var videos = $("#videos");
@@ -56,5 +58,7 @@
     </p>
  
     <pre id="log"></pre>
+
+    <div id="ajax-log"></div>
   </body>
 </html>
