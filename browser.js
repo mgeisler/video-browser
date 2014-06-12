@@ -118,7 +118,7 @@ function load_video_data(elm) {
                     thumb_job.then(function (base_job) {
                         job = update_job_input(base_job, container, name);
                         client.execute(job, function (result) {
-                            var flat = result.replace('\n', '', 'g');
+                            var flat = result.replace(/\n/g, '');
                             $(video).css('background-image',
                                          'url("data:image/png;base64,' + flat + '")');
                         });
