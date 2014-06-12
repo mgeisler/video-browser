@@ -2,6 +2,10 @@ body {
     font-family: sans-serif;
 }
 
+p {
+    margin: 0;
+}
+
 a {
     color: blue;
     cursor: pointer;
@@ -57,4 +61,15 @@ a.disabled {
 
 .updated {
     font-weight: bold;
+}
+
+#log {
+    position: absolute;
+    bottom: 0;
+    height: 240px;
+    border: thin solid green;
+    overflow-y: scroll;
+    width: 95%;
+    background-color: #dfdfdf;
+    padding: 10px;
 }
