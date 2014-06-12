@@ -107,7 +107,6 @@ function load_video_data(elm) {
                     meta_job.then(function (base_job) {
                         job = update_job_input(base_job, container, name);
                         client.execute(job, function (result) {
-                            $(video).removeClass('pending');
                             result = ini_parse(result);
                             if (result.title) {
                                 title.text(result.title);
