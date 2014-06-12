@@ -77,6 +77,40 @@ function update_job_input(base_job, container, name) {
     };
 }
 
+function loop_dots(next) {
+    var duration = 200;
+    var dots = $(this);
+    dots.children().each(function (i, dot) {
+        dots.queue(function (next) {
+            $(dot).fadeIn();
+            next();
+        });
+        dots.delay(duration);
+    });
+    dots.fadeOut();
+    dots.delay(duration);
+    dots.queue(function (next) {
+        dots.children().hide();
+        dots.show();
+        next();
+    });
+    dots.queue(loop_dots);
+    next();
+}
+
+function start_loading_animation(elm) {
+    var dots = elm.children('.dots');
+    for (i = 0; i < 3; i++) {
+        dots.append($('<span>').text('.').hide());
+    }
+    dots.queue(loop_dots);
+}
+
+function stop_loading_animation(elm) {
+    elm.children('.dots').finish();
+    elm.fadeOut();
+}
+
 function load_video_data(elm) {
     var client = new ZeroCloudClient();
     var opts = {version: "0.0", swiftUrl: swift_url()};
@@ -92,13 +126,13 @@ function load_video_data(elm) {
         elm.find('.video').each(function (i, video) {
             var name = $(video).data('name');
             var title = $(video).children('.title');
-            title.addClass('pending');
+            var loading = $(video).find('.loading');
+            start_loading_animation(loading);
 
             var ajax_opts = {method: 'HEAD', cache: false};
             var q = $.ajax(prefix + '/' + name, ajax_opts);
 
             q.then(function (data, status, xhr) {
-                title.removeClass('pending');
                 var text = xhr.getResponseHeader('X-Object-Meta-Title');
                 if (text) {
                     title.text(text);
@@ -119,6 +153,7 @@ function load_video_data(elm) {
                 var thumbUrl = xhr.getResponseHeader('X-Object-Meta-Thumbnail');
                 if (thumbUrl) {
                     $(video).css('background-image', 'url(' + thumbUrl + ')');
+                    stop_loading_animation(loading);
                 } else {
                     thumb_job.then(function (base_job) {
                         job = update_job_input(base_job, container, name);
@@ -126,6 +161,7 @@ function load_video_data(elm) {
                             var flat = result.replace(/\n/g, '');
                             $(video).css('background-image',
                                          'url("data:image/png;base64,' + flat + '")');
+                            stop_loading_animation(loading);
                         });
                     });
                 };

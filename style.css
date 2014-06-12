@@ -18,10 +18,11 @@ a.disabled {
 }
 
 .video {
+    position: relative;
     display: inline-block;
     width: 320px;
     height: 180px;
-    background-image: url("http://placehold.it/320x180/C40022&text=Loading...");
+    background: #c40022;
     margin: 0.5em;
     border: 2px solid grey;
     border-radius: 4px;
@@ -35,17 +36,31 @@ a.disabled {
     background-color: rgba(255, 255, 255, 0.6);
 }
 
+.video .loading {
+    position: absolute;
+    top: 0;
+    margin: 0;
+    width: 100%;
+    line-height: 180px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 0px 0px 2px black, 0px 0px 3px black, 0px 0px 4px black, 0px 0px 4px black;
+    color: white;
+}
+
+.video .loading .dots {
+    display: inline-block;
+    width: 0;
+}
+
 .video .title.swift {
     color: blue;
 }
 
 .video .title.zerovm {
     color: #ff3300;
-}
-
-
-.pending {
-    background-color: #efefef;
 }
 
 .updated {
