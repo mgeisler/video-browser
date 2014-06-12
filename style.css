@@ -7,8 +7,12 @@ p {
     margin: 0;
 }
 
-a {
+h1, a {
     color: #c40022;
+}
+
+
+a {
     cursor: pointer;
 }
 
