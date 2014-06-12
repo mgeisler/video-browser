@@ -75,7 +75,11 @@ function load_videos(container, opts, success) {
             var next = list_objects(container, {limit: 1, marker: last});
 
             videos = $.map(data, function (obj) {
-                return {name: obj.name};
+                var path = container + '/' + encodeURIComponent(obj.name);
+                return {
+                    name: obj.name,
+                    src: swift_url() + '/' + path
+                };
             });
             $.when(prev, next).then(function (a_prev, a_next) {
                 var first = a_prev[0].length == 0;
@@ -108,6 +112,12 @@ function page_videos(element, direction) {
         element.data('prev')[first ? 'addClass' : 'removeClass']('disabled');
         element.data('next')[last ? 'addClass' : 'removeClass']('disabled');
     });
+}
+
+function show_video(elm) {
+    $('#player > video').attr('src', $(elm).data('src'));
+    $('#player').fadeIn();
+    $('#dimmer').fadeIn();
 }
 
 function update_job_input(base_job, container, name) {

@@ -13,7 +13,7 @@
 
     <script id="videos-template" type="text/x-handlebars-template">
       {{#each videos}}
-      <div class="video" data-name="{{name}}">
+      <div class="video" data-name="{{name}}" data-src="{{src}}">
         <p class="title">{{name}}</p>
         <p class="loading">Loading<span class="dots"></span></p>
       </div>
@@ -45,6 +45,15 @@
                   page_videos(videos, 'next');
           });
           page_videos(videos, 'next');
+
+          $(document).on('click', '.video', function (event) {
+              show_video(this);
+          });
+          $('#dimmer').click(function () {
+              $('#player').fadeOut();
+              $('#player > video').get(0).pause();
+              $('#dimmer').fadeOut();
+          });
       });
     </script>
   </head>
@@ -57,6 +66,12 @@
       <a id="prev">Previous Page</a> | <a id="next">Next Page</a>
     </p>
  
+    <div id="dimmer"></div>
+
+    <div id="player"">
+      <video type="video/mp4" width="400" height="300" controls autoplay />
+    </div>
+
     <pre id="log"></pre>
 
     <div id="ajax-log"></div>

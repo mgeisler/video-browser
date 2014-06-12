@@ -90,3 +90,23 @@ a.disabled {
     border-radius: 3px 3px 0px 0px;
     font-family: monospace;
 }
+
+#dimmer {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.8;
+    background-color: black;
+}
+
+#player {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -200px;
+}
