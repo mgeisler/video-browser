@@ -1,6 +1,7 @@
 video-browser
 =============
 
+[![Build Status](https://travis-ci.org/mgeisler/video-browser.svg?branch=master)](https://travis-ci.org/mgeisler/video-browser)
 ZeroVM video browser demo application.
 
 Usage
