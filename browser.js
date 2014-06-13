@@ -129,7 +129,7 @@ function update_job_input(base_job, container, name) {
             devices[i].path = path;
             return job;
         }
-    };
+    }
 }
 
 function loop_dots(next) {
@@ -225,7 +225,7 @@ function load_video_data(elm) {
                             log('ZeroVM - extracted thumbnail for', name);
                         });
                     });
-                };
+                }
             });
         });
     });
