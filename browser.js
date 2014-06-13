@@ -95,11 +95,11 @@ function page_videos(element, direction) {
     var opts = {limit: 6, marker: null, end_marker: null};
     if (videos.length > 0) {
         if (direction == 'prev') {
-            var video = videos[0];
-            opts.end_marker = $(video).data('name');
+            var first_video = videos[0];
+            opts.end_marker = $(first_video).data('name');
         } else {
-            var video = videos[videos.length - 1];
-            opts.marker = $(video).data('name');
+            var last_video = videos[videos.length - 1];
+            opts.marker = $(last_video).data('name');
         }
     }
 
