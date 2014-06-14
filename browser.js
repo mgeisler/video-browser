@@ -191,6 +191,21 @@ $.ajaxTransport("blob", function(options, originalOptions, jqXHR){
     }
 });
 
+function blob_execute(job, success) {
+    var headers = {'X-Zerovm-Execute': '1.0'};
+    return $.ajax({
+        'mgtest': 123,
+        'type': 'POST',
+        'url': swift_url(),
+        'data': JSON.stringify(job),
+        'headers': headers,
+        'cache': false,
+        'success': success,
+        'contentType': 'application/json',
+        'dataType': 'blob'
+    });
+}
+
 function load_video_data(elm) {
     var client = new ZeroCloudClient();
     var opts = {version: "0.0", swiftUrl: swift_url()};
@@ -242,10 +257,9 @@ function load_video_data(elm) {
                 } else {
                     thumb_job.then(function (base_job) {
                         job = update_job_input(base_job, container, name);
-                        client.execute(job, function (result) {
-                            var flat = result.replace(/\n/g, '');
-                            $(video).css('background-image',
-                                         'url("data:image/png;base64,' + flat + '")');
+                        blob_execute(job).done(function (blob) {
+                            var url = URL.createObjectURL(blob);
+                            $(video).css('background-image', 'url("' + url + '")');
                             stop_loading_animation(loading);
                             log('ZeroVM - extracted thumbnail for', name);
                         });
