@@ -166,6 +166,31 @@ function stop_loading_animation(elm) {
     elm.fadeOut();
 }
 
+$.ajaxTransport("blob", function(options, originalOptions, jqXHR){
+    if (window.FormData) {
+        return {
+            send: function(headers, completeCallback){
+                var xhr = new XMLHttpRequest();
+                xhr.addEventListener('load', function () {
+                    var res = {};
+                    res[options.dataType] = xhr.response;
+                    completeCallback(xhr.status, xhr.statusText, res,
+                                     xhr.getAllResponseHeaders());
+                });
+                xhr.open(options.type, options.url, options.async);
+                xhr.responseType = options.dataType;
+	        for (key in headers) {
+                    xhr.setRequestHeader(key, headers[key]);
+                }
+                xhr.send(options.data);
+            },
+            abort: function () {
+                jqXHR.abort();
+            }
+        };
+    }
+});
+
 function load_video_data(elm) {
     var client = new ZeroCloudClient();
     var opts = {version: "0.0", swiftUrl: swift_url()};
