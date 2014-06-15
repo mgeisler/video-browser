@@ -38,4 +38,14 @@ metadata associated with the object in Swift (using the `title` key).
 If that fails, it calls out to the `extract-meta` helper which then
 tries to analyze the object.
 
+Compatibility
+-------------
+
+After `d1b2fbb`, you need to use Internet Explorer 10, Firefox 28, or
+Chrome 33 to see the extracted thumbnails. This is because the code
+uses [XMLHttpRequest Level 2][2] features, such as setting
+`responseType` to `blob` in order to directly retrieve the binary data
+for the thumbnails.
+
 [1]: http://techslides.com/sample-webm-ogg-and-mp4-video-files-for-html5/
+[2]: http://www.w3.org/TR/XMLHttpRequest2/
