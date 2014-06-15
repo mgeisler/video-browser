@@ -179,7 +179,7 @@ $.ajaxTransport("blob", function(options, originalOptions, jqXHR){
                 });
                 xhr.open(options.type, options.url, options.async);
                 xhr.responseType = options.dataType;
-	        for (key in headers) {
+	        for (var key in headers) {
                     xhr.setRequestHeader(key, headers[key]);
                 }
                 xhr.send(options.data);
