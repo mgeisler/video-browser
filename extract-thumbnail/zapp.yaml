@@ -15,7 +15,7 @@ execution:
       path: file://avconv
 
       # Command line arguments for the nexe.
-      args: "-ss 30 -i /dev/input -c:v png -frames 1 -s 320x180 -f image2 -"
+      args: "-ss 30 -i /dev/input -frames 1 -s 320x180 -f image2 -"
 
       # Input and output devices for this group.
       devices:
