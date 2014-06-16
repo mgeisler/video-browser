@@ -27,7 +27,7 @@ Create a container called `videos` and upload some objects there
 
     $ swift upload videos *.mp4
 
-You can find a [sample file online][1].
+You can download some [movie trailers][1] online.
 
 Now browse to the `index.html` page and it should show a listing of
 the videos in your `videos` container.
@@ -47,5 +47,5 @@ uses [XMLHttpRequest Level 2][2] features, such as setting
 `responseType` to `blob` in order to directly retrieve the binary data
 for the thumbnails.
 
-[1]: http://techslides.com/sample-webm-ogg-and-mp4-video-files-for-html5/
+[1]: http://www.hd-trailers.net/
 [2]: http://www.w3.org/TR/XMLHttpRequest2/
