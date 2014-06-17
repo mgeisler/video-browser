@@ -33,8 +33,8 @@
           var source = $('#videos-template').html();
           var template = Handlebars.compile(source);
           var videos = $("#videos");
-          var prev = $('#prev');
-          var next = $('#next');
+          var prev = $('.navigation .prev');
+          var next = $('.navigation .next');
           videos.data('template', template);
           videos.data('prev', prev);
           videos.data('next', next);
@@ -63,9 +63,12 @@
   <body>
     <h1>Browsing <span id="count"></span> Videos</h1>
 
+    <p class="navigation">
+      <a class="prev">Previous Page</a> | <a class="next">Next Page</a>
+    </p>
     <div id="videos" data-container="videos"></div>
-    <p>
-      <a id="prev">Previous Page</a> | <a id="next">Next Page</a>
+    <p class="navigation">
+      <a class="prev">Previous Page</a> | <a class="next">Next Page</a>
     </p>
  
     <div id="dimmer"></div>
