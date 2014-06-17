@@ -256,13 +256,12 @@ function load_video_data(elm) {
                     log('Swift - loaded thumbnail URL for', name);
                 } else {
                     thumb_job.then(function (base_job) {
-                        job = update_job_input(base_job, container, name);
-                        blob_execute(job).done(function (blob) {
-                            var url = URL.createObjectURL(blob);
-                            $(video).css('background-image', 'url("' + url + '")');
-                            stop_loading_animation(loading);
-                            log('ZeroVM - extracted thumbnail for', name);
-                        });
+                        return update_job_input(base_job, container, name);
+                    }).then(blob_execute).then(function (blob) {
+                        var url = URL.createObjectURL(blob);
+                        $(video).css('background-image', 'url("' + url + '")');
+                        stop_loading_animation(loading);
+                        log('ZeroVM - extracted thumbnail for', name);
                     });
                 }
             });
