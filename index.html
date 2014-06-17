@@ -26,15 +26,23 @@
       {{/each}}
     </script>
 
+    <script id="navigation-template" type="text/x-handlebars-template">
+      <a class="prev">Previous Page</a> | <a class="next">Next Page</a>
+    </script>
+
     <script type="text/javascript">
       $(document).ready(function () {
           setup_ajax_logging($('#ajax-log'));
+          var nav_source = $('#navigation-template').html();
+          var nav_templ = Handlebars.compile(nav_source);
+          var nav_html = nav_templ()
+          $('.navigation').html(nav_html);
+          var prev = $('.navigation .prev');
+          var next = $('.navigation .next');
 
           var source = $('#videos-template').html();
           var template = Handlebars.compile(source);
           var videos = $("#videos");
-          var prev = $('.navigation .prev');
-          var next = $('.navigation .next');
           videos.data('template', template);
           videos.data('prev', prev);
           videos.data('next', next);
@@ -63,13 +71,9 @@
   <body>
     <h1>Browsing <span id="count"></span> Videos</h1>
 
-    <p class="navigation">
-      <a class="prev">Previous Page</a> | <a class="next">Next Page</a>
-    </p>
+    <p class="navigation" />
     <div id="videos" data-container="videos"></div>
-    <p class="navigation">
-      <a class="prev">Previous Page</a> | <a class="next">Next Page</a>
-    </p>
+    <p class="navigation" />
  
     <div id="dimmer"></div>
 
