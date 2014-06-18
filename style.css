@@ -33,8 +33,6 @@ input[type="number"] {
 .video {
     position: relative;
     display: inline-block;
-    width: 320px;
-    height: 180px;
     background: #c40022;
     margin: 0.5em;
     border-radius: 3px;

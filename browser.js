@@ -132,10 +132,12 @@ function update_job_input(base_job, container, name) {
     }
 }
 
-function update_thumb_job(job, seek) {
+function update_thumb_job(job, data) {
     /* Update the seek time in the thumbnail extraction job. */
     var args = job[0].exec.args;
-    job[0].exec.args = args.replace(/-ss\s*\d+/, "-ss " + seek);
+    args = args.replace(/-ss\s*\d+/, "-ss " + data.seek);
+    args = args.replace(/-s\s*\d+x\d+/, "-s " + data.size);
+    job[0].exec.args = args;
 }
 
 function loop_dots(next) {
@@ -221,6 +223,10 @@ function load_video_data(elm) {
     var prefix = swift_url() + '/' + elm.data('container');
     var container = elm.data('container');
 
+    var width_height = elm.data('size').split('x');
+    var video_width = width_height[0];
+    var video_height = width_height[1];
+
     client.auth(opts, function () {
         var meta_job = $.getJSON(meta);
         var thumb_job = $.getJSON(thumb);
@@ -230,6 +236,12 @@ function load_video_data(elm) {
             var title = $(video).children('.title');
             var loading = $(video).find('.loading');
             start_loading_animation(loading);
+
+            // Set the size of the videos the first time the page is
+            // loaded.
+            if ($(video).css('width') == '0px') {
+                $(video).css({width: video_width, height: video_height});
+            }
 
             var ajax_opts = {method: 'HEAD', cache: false};
             var q = $.ajax(prefix + '/' + name, ajax_opts);
@@ -264,10 +276,13 @@ function load_video_data(elm) {
                 } else {
                     thumb_job.then(function (base_job) {
                         job = update_job_input(base_job, container, name);
-                        update_thumb_job(job, elm.data('seek'));
+                        update_thumb_job(job, elm.data());
                         return job;
                     }).then(blob_execute).then(function (blob) {
                         var url = URL.createObjectURL(blob);
+                        $(video).animate({width: video_width,
+                                          height: video_height},
+                                         'fast');
                         $(video).css('background-image', 'url("' + url + '")');
                         stop_loading_animation(loading);
                         log('ZeroVM - extracted thumbnail for', name);

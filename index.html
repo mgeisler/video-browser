@@ -54,7 +54,7 @@
               if (!$(this).hasClass('disabled'))
                   page_videos(videos, 'next');
           });
-          var controls = $('#controls input');
+          var controls = $('#controls input, #controls select');
           controls.on('change', function () {
               videos.data(this.name, $(this).val());
               load_video_data(videos);
@@ -87,6 +87,14 @@
       <p>Extract frame at
       <input name="seek" type="number" min="5" max="300" step="5" value="30" />
       seconds.
+      </p>
+      <p>
+        Thumbnail size:
+        <select name="size">
+          <option value="240x135">Small</option>
+          <option value="320x180">Medium</option>
+          <option value="480x270">Large</option>
+        </select>
       </p>
     </div>
  
