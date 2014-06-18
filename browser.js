@@ -155,10 +155,11 @@ function loop_dots(next) {
 
 function start_loading_animation(elm) {
     var dots = elm.children('.dots');
-    for (i = 0; i < 3; i++) {
+    while (dots.children().length < 3) {
         dots.append($('<span>').text('.').hide());
     }
     dots.queue(loop_dots);
+    elm.fadeIn();
 }
 
 function stop_loading_animation(elm) {
