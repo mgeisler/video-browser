@@ -72,6 +72,18 @@
               $('#player > video').get(0).pause();
               $('#dimmer').fadeOut();
           });
+
+          $('.box').each(function () {
+              var title = $(this).children('.title');
+              var dots = $('<span>').addClass('dots').text("...");
+              var content = $(this).children('.content');
+              title.append(dots)
+              content.hide();
+              title.click(function () {
+                  dots.fadeToggle();
+                  content.fadeToggle();
+              });
+          });
       });
     </script>
   </head>
@@ -83,7 +95,9 @@
     <div id="videos" data-container="videos"></div>
     <p class="navigation" />
 
-    <div id="controls">
+    <div class="box">
+    <p class="title">Thumbnail Controls</p>
+    <div id="controls" class="content">
       <p>Extract frame at
       <input name="seek" type="number" min="5" max="300" step="5" value="30" />
       seconds.
@@ -96,6 +110,7 @@
           <option value="480x270">Large</option>
         </select>
       </p>
+    </div>
     </div>
  
     <div id="dimmer"></div>
