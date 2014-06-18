@@ -81,11 +81,9 @@ input[type="number"] {
 
 .video .loading {
     position: absolute;
-    top: 0;
-    margin: 0;
     width: 100%;
-    line-height: 180px;
-    vertical-align: middle;
+    top: 50%;
+    margin-top: -12px;
     text-align: center;
     font-size: 24px;
     font-weight: bold;
