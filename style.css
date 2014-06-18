@@ -21,6 +21,10 @@ a.disabled {
     cursor: inherit;
 }
 
+input[type="number"] {
+    width: 3em;
+}
+
 .exhausted {
     font-style: italic;
     color: grey;

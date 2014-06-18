@@ -54,6 +54,11 @@
               if (!$(this).hasClass('disabled'))
                   page_videos(videos, 'next');
           });
+          $('#controls input[name="seek"]').on('change', function () {
+              videos.data('seek', $(this).val());
+              load_video_data(videos);
+          });
+          videos.data('seek', $('#controls input[name="seek"]').val());
           page_videos(videos, 'next');
 
           $(document).on('click', '.video', function (event) {
@@ -74,6 +79,13 @@
     <p class="navigation" />
     <div id="videos" data-container="videos"></div>
     <p class="navigation" />
+
+    <div id="controls">
+      <p>Extract frame at
+      <input name="seek" type="number" min="5" max="300" step="5" value="30" />
+      seconds.
+      </p>
+    </div>
  
     <div id="dimmer"></div>
 

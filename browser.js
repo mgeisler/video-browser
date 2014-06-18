@@ -132,6 +132,12 @@ function update_job_input(base_job, container, name) {
     }
 }
 
+function update_thumb_job(job, seek) {
+    /* Update the seek time in the thumbnail extraction job. */
+    var args = job[0].exec.args;
+    job[0].exec.args = args.replace(/-ss\s*\d+/, "-ss " + seek);
+}
+
 function loop_dots(next) {
     var duration = 200;
     var dots = $(this);
@@ -257,7 +263,9 @@ function load_video_data(elm) {
                     log('Swift - loaded thumbnail URL for', name);
                 } else {
                     thumb_job.then(function (base_job) {
-                        return update_job_input(base_job, container, name);
+                        job = update_job_input(base_job, container, name);
+                        update_thumb_job(job, elm.data('seek'));
+                        return job;
                     }).then(blob_execute).then(function (blob) {
                         var url = URL.createObjectURL(blob);
                         $(video).css('background-image', 'url("' + url + '")');
