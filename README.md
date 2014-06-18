@@ -34,7 +34,7 @@ Create a container called `videos` and upload some objects there
 
     $ swift upload videos *.mp4
 
-You can download some [movie trailers][1] online.
+You can download test movies from the [Internet Archive][1].
 
 Now browse to the `index.html` page and it should show a listing of
 the videos in your `videos` container.
@@ -58,5 +58,5 @@ for the thumbnails.
 [swift]: http://swift.openstack.org/
 [zerocloud]: https://github.com/zerovm/zerocloud/
 
-[1]: http://www.hd-trailers.net/
+[1]: https://archive.org/details/movies
 [2]: http://www.w3.org/TR/XMLHttpRequest2/
