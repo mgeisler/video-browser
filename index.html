@@ -54,11 +54,14 @@
               if (!$(this).hasClass('disabled'))
                   page_videos(videos, 'next');
           });
-          $('#controls input[name="seek"]').on('change', function () {
-              videos.data('seek', $(this).val());
+          var controls = $('#controls input');
+          controls.on('change', function () {
+              videos.data(this.name, $(this).val());
               load_video_data(videos);
           });
-          videos.data('seek', $('#controls input[name="seek"]').val());
+          controls.each(function () {
+              videos.data(this.name, $(this).val());
+          });
           page_videos(videos, 'next');
 
           $(document).on('click', '.video', function (event) {
