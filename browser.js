@@ -120,6 +120,15 @@ function show_video(elm) {
     $('#dimmer').fadeIn();
 }
 
+function add_image_device(job) {
+    var path = window.location.pathname;
+    /* Remove "/v1/" prefix and "index.html" suffix */
+    path = path.slice(4, path.lastIndexOf('/'));
+    var swift_path = 'swift://' + path + '/video-browser.zapp';
+    job[0].file_list.push({device: 'image', path: swift_path});
+    return job;
+}
+
 function update_job_input(base_job, container, name) {
     var job = JSON.parse(JSON.stringify(base_job));  // clone job
     var path = 'swift://~/' + container + '/' + name;
@@ -218,8 +227,8 @@ function blob_execute(job, success) {
 function load_video_data(elm) {
     var client = new ZeroCloudClient();
     var opts = {version: "0.0", swiftUrl: swift_url()};
-    var meta = swift_url() + '/video-browser/extract-meta/extract-meta.json';
-    var thumb = swift_url() + '/video-browser/extract-thumbnail/extract-thumbnail.json';
+    var meta = 'extract-meta.json';
+    var thumb = 'extract-thumbnail.json';
     var prefix = swift_url() + '/' + elm.data('container');
     var container = elm.data('container');
 
@@ -256,6 +265,7 @@ function load_video_data(elm) {
                 } else {
                     meta_job.then(function (base_job) {
                         job = update_job_input(base_job, container, name);
+                        add_image_device(job);
                         log('Loading title for', name, 'with ZeroVM');
                         client.execute(job, function (result) {
                             result = ini_parse(result);
@@ -276,6 +286,7 @@ function load_video_data(elm) {
                 } else {
                     thumb_job.then(function (base_job) {
                         job = update_job_input(base_job, container, name);
+                        add_image_device(job);
                         update_thumb_job(job, elm.data());
                         return job;
                     }).then(blob_execute).then(function (blob) {

@@ -1,0 +1,22 @@
+execution:
+  groups: []
+
+meta:
+  Version: "0.1"
+  name: "video-browser"
+  author: "Martin Geisler"
+  email: "martin@geisler.net"
+  Summary: "Swift Video browser"
+
+help:
+  description: ""
+  args: []
+
+bundling:
+  - avconv
+
+ui:
+  - "*.html"
+  - "*.js"
+  - "*.css"
+  - "*.json"
