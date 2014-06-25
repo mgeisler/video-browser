@@ -1,0 +1,1 @@
+[{"file_list": [{"device": "stdout"}, {"device": "input"}], "name": "extract", "exec": {"path": "file://avconv", "args": "-ss 30 -i /dev/input -c:v png -frames 1 -s 320x180 -f image2 -"}}]

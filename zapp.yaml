@@ -12,9 +12,11 @@ help:
   description: ""
   args: []
 
-bundling: []
+bundling:
+  - avconv
 
 ui:
   - "*.html"
   - "*.js"
   - "*.css"
+  - "*.json"
