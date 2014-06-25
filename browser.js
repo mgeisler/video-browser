@@ -60,6 +60,13 @@ function list_containers(opts, success) {
     return $.getJSON(url, success);
 }
 
+function basename(path) {
+    var last_slash = path.lastIndexOf('/');
+    if (last_slash != -1)
+        path = path.slice(last_slash + 1);
+    return path;
+}
+
 function load_videos(container, opts, success) {
     list_objects(container, opts, function (data, status, xhr) {
         var count = xhr.getResponseHeader('X-Container-Object-Count');
@@ -78,6 +85,7 @@ function load_videos(container, opts, success) {
                 var path = container + '/' + encodeURIComponent(obj.name);
                 return {
                     name: obj.name,
+                    title: basename(obj.name),
                     src: swift_url() + '/' + path
                 };
             });
