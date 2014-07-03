@@ -35,6 +35,13 @@ metadata associated with the object in Swift (using the `title` key).
 If that fails, it calls out to the `extract-meta` helper which then
 tries to analyze the object.
 
+Contributing
+------------
+
+Please open a pull request! We will look at the code and try to
+respond as fast as we can. Travis will run a small test, so make sure
+that your pull request passes that test first.
+
 Compatibility
 -------------
 
