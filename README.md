@@ -44,9 +44,16 @@ uses [XMLHttpRequest Level 2][2] features, such as setting
 `responseType` to `blob` in order to directly retrieve the binary data
 for the thumbnails.
 
+License
+-------
+
+This software is license under the [Apache 2.0 license][apache].
+Please see the LICENSE file for details.
+
 [screenshots]: screenshots.md
 [swift]: http://swift.openstack.org/
 [zerocloud]: https://github.com/zerovm/zerocloud/
+[apache]: http://www.apache.org/licenses/LICENSE-2.0
 
 [1]: https://archive.org/details/movies
 [2]: http://www.w3.org/TR/XMLHttpRequest2/
