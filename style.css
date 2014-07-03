@@ -2,11 +2,7 @@ body {
     font-family: sans-serif;
     background: #333333;
     padding-top: 50px;
-}
-
-.main {
-  padding: 40px 15px;
-  text-align: center;
+    text-align: center;
 }
 
 .lead {
