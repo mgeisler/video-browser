@@ -5,22 +5,22 @@ body {
     text-align: center;
 }
 
-.lead {
-    color: #fff;
-    font-size: larger;
-}
-
 .navbar-red {
     color: white;
     background: #a90329;
     background: linear-gradient(#a90329 0%,#8f0222 44%,#6d0019 100%);
 }
 
+h1 {
+    color: white;
+}
+
 p {
     margin: 6px 0;
 }
 
-h1, a {
+
+a {
     color: #c40022;
 }
 
