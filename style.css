@@ -1,6 +1,23 @@
 body {
     font-family: sans-serif;
     background: #333333;
+    padding-top: 50px;
+}
+
+.main {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.lead {
+    color: #fff;
+    font-size: larger;
+}
+
+.navbar-red {
+    color: white;
+    background: #a90329;
+    background: linear-gradient(#a90329 0%,#8f0222 44%,#6d0019 100%);
 }
 
 p {
@@ -172,23 +189,4 @@ input[type="number"] {
     background: white;
     border-radius: 3px;
     box-shadow: 0px 0px 8px white;
-}
-
-body {
-  padding-top: 50px;
-}
-.main {
-  padding: 40px 15px;
-  text-align: center;
-}
-
-.lead {
-    color: #fff;
-    font-size: larger;
-}
-
-.navbar-red {
-    color: white;
-    background: #a90329;
-    background: linear-gradient(#a90329 0%,#8f0222 44%,#6d0019 100%);
 }
