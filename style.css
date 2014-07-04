@@ -147,21 +147,6 @@ input[type="number"] {
     padding: 10px;
 }
 
-#ajax-log {
-    position: fixed;
-    bottom: 0;
-    left: 10px;
-    right: 10px;
-    padding: 6px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    background-color: #c8c8c8;
-    z-index: 1;
-    border-radius: 3px 3px 0px 0px;
-    font-family: monospace;
-}
-
 #dimmer {
     display: none;
     position: fixed;

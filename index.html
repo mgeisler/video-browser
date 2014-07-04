@@ -39,7 +39,6 @@
 
     <script type="text/javascript">
       $(document).ready(function () {
-          setup_ajax_logging($('#ajax-log'));
           var nav_source = $('#navigation-template').html();
           var nav_templ = Handlebars.compile(nav_source);
           var nav_html = nav_templ()
@@ -134,7 +133,5 @@
     </div>
 </div>
     <pre id="log"></pre>
-
-    <div id="ajax-log"></div>
   </body>
 </html>
