@@ -104,34 +104,34 @@
     <div class="container">
       <h1>Browsing <span id="count"></span> Videos</h1>
 
-    <p class="navigation" />
-    <div id="videos" data-container="videos"></div>
-    <p class="navigation" />
+      <p class="navigation" />
+      <div id="videos" data-container="videos"></div>
+      <p class="navigation" />
 
-    <div class="box">
-    <p class="title">Thumbnail Controls</p>
-    <div id="controls" class="content">
-      <p>Extract frame at
-      <input name="seek" type="number" min="5" max="300" step="5" value="30" />
-      seconds.
-      </p>
-      <p>
-        Thumbnail size:
-        <select name="size">
-          <option value="240x135">Small</option>
-          <option value="320x180" selected="selected">Medium</option>
-          <option value="480x270">Large</option>
-        </select>
-      </p>
-    </div>
-    </div>
+      <div class="box">
+        <p class="title">Thumbnail Controls</p>
+        <div id="controls" class="content">
+          <p>Extract frame at
+          <input name="seek" type="number" min="5" max="300" step="5" value="30" />
+          seconds.
+          </p>
+          <p>
+            Thumbnail size:
+            <select name="size">
+              <option value="240x135">Small</option>
+              <option value="320x180" selected="selected">Medium</option>
+              <option value="480x270">Large</option>
+            </select>
+          </p>
+        </div>
+      </div>
 
-    <div id="dimmer"></div>
+      <div id="dimmer"></div>
 
-    <div id="player"">
-      <video type="video/mp4" width="560" height="320" controls autoplay />
+      <div id="player"">
+        <video type="video/mp4" width="560" height="320" controls autoplay />
+      </div>
     </div>
-</div>
     <pre id="log"></pre>
   </body>
 </html>
