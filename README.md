@@ -49,7 +49,8 @@ After `d1b2fbb`, you need to use Internet Explorer 10, Firefox 28, or
 Chrome 33 to see the extracted thumbnails. This is because the code
 uses [XMLHttpRequest Level 2][2] features, such as setting
 `responseType` to `blob` in order to directly retrieve the binary data
-for the thumbnails.
+for the thumbnails. Please see issue #14 about restoring IE 9
+compatibility.
 
 License
 -------
