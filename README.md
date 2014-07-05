@@ -4,12 +4,14 @@ video-browser
 [![Build Status](https://travis-ci.org/mgeisler/video-browser.svg?branch=master)](https://travis-ci.org/mgeisler/video-browser)
 ZeroVM video browser demo application.
 
+
 Screenshots
 -----------
 
 Because deploying this app requires some upfront work (you need to
 install [Swift][swift] and [ZeroCloud][zerocloud]), we have created
 [some screenshots][screenshots] to show you what it looks like.
+
 
 Usage
 -----
@@ -35,12 +37,14 @@ metadata associated with the object in Swift (using the `title` key).
 If that fails, it calls out to the `extract-meta` helper which then
 tries to analyze the object.
 
+
 Contributing
 ------------
 
 Please open a pull request! We will look at the code and try to
 respond as fast as we can. Travis will run a small test, so make sure
 that your pull request passes that test first.
+
 
 Compatibility
 -------------
@@ -51,6 +55,7 @@ uses [XMLHttpRequest Level 2][2] features, such as setting
 `responseType` to `blob` in order to directly retrieve the binary data
 for the thumbnails. Please see issue #14 about restoring IE 9
 compatibility.
+
 
 License
 -------
