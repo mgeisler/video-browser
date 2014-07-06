@@ -21,7 +21,7 @@ function log() {
     }
 }
 
-function swift_url() {
+function swiftUrl() {
     var path = window.location.pathname;
     var parts = path.split('/');
     while (parts.length > 3) {
@@ -30,27 +30,27 @@ function swift_url() {
     return parts.join('/');
 }
 
-function list_objects(container, opts, success) {
+function listObjects(container, opts, success) {
     var param = $.param(opts);
-    var url = swift_url() + '/' + container + '?' + param;
+    var url = swiftUrl() + '/' + container + '?' + param;
     return $.getJSON(url, success);
 }
 
-function list_containers(opts, success) {
+function listContainers(opts, success) {
     var param = $.param(opts);
-    var url = swift_url() + '/?' + param;
+    var url = swiftUrl() + '/?' + param;
     return $.getJSON(url, success);
 }
 
 function basename(path) {
-    var last_slash = path.lastIndexOf('/');
-    if (last_slash != -1)
-        path = path.slice(last_slash + 1);
+    var lastSlash = path.lastIndexOf('/');
+    if (lastSlash != -1)
+        path = path.slice(lastSlash + 1);
     return path;
 }
 
-function load_videos(container, opts, success) {
-    list_objects(container, opts, function (data, status, xhr) {
+function loadVideos(container, opts, success) {
+    listObjects(container, opts, function (data, status, xhr) {
         var count = xhr.getResponseHeader('X-Container-Object-Count');
         if (count) {
             $('#count').text(count);
@@ -60,67 +60,67 @@ function load_videos(container, opts, success) {
         } else {
             var first = data[0].name;
             var last = data[data.length - 1].name;
-            var prev = list_objects(container, {limit: 1, end_marker: first});
-            var next = list_objects(container, {limit: 1, marker: last});
+            var prev = listObjects(container, {limit: 1, end_marker: first});
+            var next = listObjects(container, {limit: 1, marker: last});
 
             videos = $.map(data, function (obj) {
                 var path = container + '/' + encodeURIComponent(obj.name);
                 return {
                     name: obj.name,
                     title: basename(obj.name),
-                    src: swift_url() + '/' + path
+                    src: swiftUrl() + '/' + path
                 };
             });
-            $.when(prev, next).then(function (a_prev, a_next) {
-                var first = a_prev[0].length == 0;
-                var last = a_next[0].length == 0;
+            $.when(prev, next).then(function (aPrev, aNext) {
+                var first = aPrev[0].length == 0;
+                var last = aNext[0].length == 0;
                 return (success || $.noop)({videos: videos}, first, last);
             });
         }
     });
 }
 
-function page_videos(element, direction) {
+function pageVideos(element, direction) {
     var videos = element.find('.video');
     var opts = {limit: 6, marker: null, end_marker: null};
     if (videos.length > 0) {
         if (direction == 'prev') {
-            var first_video = videos[0];
-            opts.end_marker = $(first_video).data('name');
+            var firstVideo = videos[0];
+            opts.end_marker = $(firstVideo).data('name');
         } else {
-            var last_video = videos[videos.length - 1];
-            opts.marker = $(last_video).data('name');
+            var lastVideo = videos[videos.length - 1];
+            opts.marker = $(lastVideo).data('name');
         }
     }
 
-    load_videos(element.data('container'), opts, function (videos, first, last) {
+    loadVideos(element.data('container'), opts, function (videos, first, last) {
         log('Loaded', videos.videos.length, 'videos');
         var template = element.data('template');
         var html = template(videos);
         element.html(html);
-        load_video_data(element);
+        loadVideoData(element);
         element.data('prev')[first ? 'addClass' : 'removeClass']('disabled');
         element.data('next')[last ? 'addClass' : 'removeClass']('disabled');
     });
 }
 
-function show_video(elm) {
+function showVideo(elm) {
     $('#player > video').attr('src', $(elm).data('src'));
     $('#player').fadeIn();
     $('#dimmer').fadeIn();
 }
 
-function add_image_device(job) {
+function addImageDevice(job) {
     var path = window.location.pathname;
     /* Remove "/v1/" prefix and "index.html" suffix */
     path = path.slice(4, path.lastIndexOf('/'));
-    var swift_path = 'swift://' + path + '/video-browser.zapp';
-    job[0].file_list.push({device: 'image', path: swift_path});
+    var swiftPath = 'swift://' + path + '/video-browser.zapp';
+    job[0].file_list.push({device: 'image', path: swiftPath});
     return job;
 }
 
-function update_job_input(base_job, container, name) {
-    var job = JSON.parse(JSON.stringify(base_job));  // clone job
+function updateJobInput(baseJob, container, name) {
+    var job = JSON.parse(JSON.stringify(baseJob));  // clone job
     var path = 'swift://~/' + container + '/' + name;
     var devices = job[0].file_list;
     for (i = 0; i < devices.length; i++) {
@@ -131,7 +131,7 @@ function update_job_input(base_job, container, name) {
     }
 }
 
-function update_thumb_job(job, data) {
+function updateThumbJob(job, data) {
     /* Update the seek time in the thumbnail extraction job. */
     var args = job[0].exec.args;
     args = args.replace(/-ss\s*\d+/, "-ss " + data.seek);
@@ -139,7 +139,7 @@ function update_thumb_job(job, data) {
     job[0].exec.args = args;
 }
 
-function loop_dots(next) {
+function loopDots(next) {
     var duration = 200;
     var dots = $(this);
     dots.children().each(function (i, dot) {
@@ -156,20 +156,20 @@ function loop_dots(next) {
         dots.show();
         next();
     });
-    dots.queue(loop_dots);
+    dots.queue(loopDots);
     next();
 }
 
-function start_loading_animation(elm) {
+function startLoadingAnimation(elm) {
     var dots = elm.children('.dots');
     while (dots.children().length < 3) {
         dots.append($('<span>').text('.').hide());
     }
-    dots.queue(loop_dots);
+    dots.queue(loopDots);
     elm.fadeIn();
 }
 
-function stop_loading_animation(elm) {
+function stopLoadingAnimation(elm) {
     elm.children('.dots').finish();
     elm.fadeOut();
 }
@@ -199,12 +199,12 @@ $.ajaxTransport("blob", function(options, originalOptions, jqXHR){
     }
 });
 
-function blob_execute(job, success) {
+function blobExecute(job, success) {
     var headers = {'X-Zerovm-Execute': '1.0'};
     return $.ajax({
         'mgtest': 123,
         'type': 'POST',
-        'url': swift_url(),
+        'url': swiftUrl(),
         'data': JSON.stringify(job),
         'headers': headers,
         'cache': false,
@@ -214,36 +214,36 @@ function blob_execute(job, success) {
     });
 }
 
-function load_video_data(elm) {
+function loadVideoData(elm) {
     var client = new ZeroCloudClient();
-    var opts = {version: "0.0", swiftUrl: swift_url()};
+    var opts = {version: "0.0", swiftUrl: swiftUrl()};
     var meta = 'extract-meta.json';
     var thumb = 'extract-thumbnail.json';
-    var prefix = swift_url() + '/' + elm.data('container');
+    var prefix = swiftUrl() + '/' + elm.data('container');
     var container = elm.data('container');
 
-    var width_height = elm.data('size').split('x');
-    var video_width = width_height[0];
-    var video_height = width_height[1];
+    var widthHeight = elm.data('size').split('x');
+    var videoWidth = widthHeight[0];
+    var videoHeight = widthHeight[1];
 
     client.auth(opts, function () {
-        var meta_job = $.getJSON(meta);
-        var thumb_job = $.getJSON(thumb);
+        var metaJob = $.getJSON(meta);
+        var thumbJob = $.getJSON(thumb);
 
         elm.find('.video').each(function (i, video) {
             var name = $(video).data('name');
             var title = $(video).children('.title');
             var loading = $(video).find('.loading');
-            start_loading_animation(loading);
+            startLoadingAnimation(loading);
 
             // Set the size of the videos the first time the page is
             // loaded.
             if ($(video).css('width') == '0px') {
-                $(video).css({width: video_width, height: video_height});
+                $(video).css({width: videoWidth, height: videoHeight});
             }
 
-            var ajax_opts = {method: 'HEAD', cache: false};
-            var q = $.ajax(prefix + '/' + name, ajax_opts);
+            var ajaxOpts = {method: 'HEAD', cache: false};
+            var q = $.ajax(prefix + '/' + name, ajaxOpts);
 
             q.then(function (data, status, xhr) {
                 log('Swift - loaded metadata for', name);
@@ -253,12 +253,12 @@ function load_video_data(elm) {
                     title.text(text);
                     title.addClass('updated');
                 } else {
-                    meta_job.then(function (base_job) {
-                        job = update_job_input(base_job, container, name);
-                        add_image_device(job);
+                    metaJob.then(function (baseJob) {
+                        job = updateJobInput(baseJob, container, name);
+                        addImageDevice(job);
                         log('Loading title for', name, 'with ZeroVM');
                         client.execute(job, function (result) {
-                            result = ini_parse(result);
+                            result = iniParse(result);
                             if (result.title) {
                                 title.text(result.title);
                                 title.addClass('updated');
@@ -271,21 +271,21 @@ function load_video_data(elm) {
                 var thumbUrl = xhr.getResponseHeader('X-Object-Meta-Thumbnail');
                 if (thumbUrl) {
                     $(video).css('background-image', 'url(' + thumbUrl + ')');
-                    stop_loading_animation(loading);
+                    stopLoadingAnimation(loading);
                     log('Swift - loaded thumbnail URL for', name);
                 } else {
-                    thumb_job.then(function (base_job) {
-                        job = update_job_input(base_job, container, name);
-                        add_image_device(job);
-                        update_thumb_job(job, elm.data());
+                    thumbJob.then(function (baseJob) {
+                        job = updateJobInput(baseJob, container, name);
+                        addImageDevice(job);
+                        updateThumbJob(job, elm.data());
                         return job;
-                    }).then(blob_execute).then(function (blob) {
+                    }).then(blobExecute).then(function (blob) {
                         var url = URL.createObjectURL(blob);
-                        $(video).animate({width: video_width,
-                                          height: video_height},
+                        $(video).animate({width: videoWidth,
+                                          height: videoHeight},
                                          'fast');
                         $(video).css('background-image', 'url("' + url + '")');
-                        stop_loading_animation(loading);
+                        stopLoadingAnimation(loading);
                         log('ZeroVM - extracted thumbnail for', name);
                     });
                 }
@@ -294,7 +294,7 @@ function load_video_data(elm) {
     });
 }
 
-function ini_parse(data) {
+function iniParse(data) {
     var result = {};
     var section = null;
     $.each(data.split('\n'), function (i, line) {
