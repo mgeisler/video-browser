@@ -13,14 +13,18 @@ install [Swift][swift] and [ZeroCloud][zerocloud]), we have created
 [some screenshots][screenshots] to show you what it looks like.
 
 
-Usage
------
+Deployment
+----------
 
 The video browser can be bundled and deployed with `zpm`:
 
     $ zpm bundle
     $ swift post video-browser
     $ zpm deploy video-browser video-browser.zapp
+
+
+Usage
+-----
 
 Create a container called `videos` and upload some objects there
 (currently only tested with MP4 files):
