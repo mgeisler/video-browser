@@ -22,6 +22,9 @@ The video browser can be bundled and deployed with `zpm`:
     $ swift post video-browser
     $ zpm deploy video-browser video-browser.zapp
 
+You need to have your Swift credentials configured for this to work.
+Please see the [`zpm` documentation][zpm] for more information.
+
 
 Usage
 -----
@@ -70,6 +73,7 @@ This software is license under the [Apache 2.0 license][apache].
 Please see the LICENSE file for details.
 
 [screenshots]: screenshots.md
+[zpm]: http://docs.zerovm.org/projects/zerovm-zpm/en/latest/zerocloud-auth-config.html
 [swift]: http://swift.openstack.org/
 [zerocloud]: https://github.com/zerovm/zerocloud/
 [apache]: http://www.apache.org/licenses/LICENSE-2.0
