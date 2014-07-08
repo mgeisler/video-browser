@@ -19,11 +19,13 @@ Usage
 The video browser can be bundled and deployed with `zpm`:
 
     $ zpm bundle
+    $ swift post video-browser
     $ zpm deploy video-browser video-browser.zapp
 
 Create a container called `videos` and upload some objects there
 (currently only tested with MP4 files):
 
+    $ swift post videos
     $ swift upload videos *.mp4
 
 You can download test movies from the [Internet Archive][1].
