@@ -284,6 +284,7 @@ function loadVideoData(elm) {
                                           height: videoHeight},
                                          'fast');
                         $(video).css('background-image', 'url("' + url + '")');
+                        setTimeout(URL.revokeObjectURL, 100, url);
                         stopLoadingAnimation(loading);
                         log('ZeroVM - extracted thumbnail for', name);
                     });
