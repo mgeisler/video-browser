@@ -202,7 +202,6 @@ $.ajaxTransport("blob", function(options, originalOptions, jqXHR){
 function blobExecute(job, success) {
     var headers = {'X-Zerovm-Execute': '1.0'};
     return $.ajax({
-        'mgtest': 123,
         'type': 'POST',
         'url': swiftUrl(),
         'data': JSON.stringify(job),
