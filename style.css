@@ -98,7 +98,8 @@ input[type="number"] {
     text-align: center;
     font-size: 24px;
     font-weight: bold;
-    text-shadow: 0px 0px 2px black, 0px 0px 3px black, 0px 0px 4px black, 0px 0px 4px black;
+    text-shadow: 0px 0px 2px black, 0px 0px 3px black,
+                 0px 0px 4px black, 0px 0px 4px black;
     color: white;
 }
 
