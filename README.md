@@ -19,7 +19,6 @@ Deployment
 The video browser can be bundled and deployed with `zpm`:
 
     $ zpm bundle
-    $ swift post video-browser
     $ zpm deploy video-browser video-browser.zapp
 
 You need to have your Swift credentials configured for this to work.
