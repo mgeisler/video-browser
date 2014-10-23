@@ -1,4 +1,5 @@
-[{"file_list": [{"device": "stdout"},
+[{"file_list": [{"device": "stdout",
+                 "content_type": "image/png"},
                 {"device": "input"}],
   "name": "extract",
   "exec": {"path": "file://avconv",
